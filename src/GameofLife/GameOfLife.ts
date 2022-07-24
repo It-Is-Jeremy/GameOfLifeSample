@@ -1,34 +1,31 @@
-import GameOfLifeCreatedEvent = require('./Events/GameOfLifeCreatedEvent');
 import Cell = require('../ValueObjects/Cell');
-
-const {AggregateBase} = require('seedwork');
-import IEvent = require('seedwork/build/src/Abstracts/IEvent');
-
+import {AggregateBase} from 'seedwork';
 import CellGenerator = require('../Generators/CellGenerator');
 
 class GameOfLife extends AggregateBase {
+  private static instance: GameOfLife;
   private _size: number;
   private _cells: Cell[];
 
-  public constructor(size:number) {
+  private constructor() {
     super();
-    this.handle(new GameOfLifeCreatedEvent(size));
+  }
+
+  public static getInstance(): GameOfLife {
+    if (!GameOfLife.instance) {
+      GameOfLife.instance = new GameOfLife();
+    }
+
+    return GameOfLife.instance;
+  }
+
+  public createCells(size:number):void {
+    this._size = size;
+    this._cells = CellGenerator.generateCells(size);
   }
 
   public getSize = (): number => this._size;
   public getCells = (): Cell[] => this._cells;
-
-  protected handle(event: IEvent) {
-    switch (event) {
-      case event as GameOfLifeCreatedEvent:
-        this.handleCreationEvent(event as GameOfLifeCreatedEvent);
-    }
-  }
-
-  private handleCreationEvent(event: GameOfLifeCreatedEvent) {
-    this._size = event.Size;
-    this._cells = CellGenerator.generateCells(event.Size);
-  }
 }
 
 export = GameOfLife;
