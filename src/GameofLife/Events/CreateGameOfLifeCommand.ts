@@ -1,6 +1,6 @@
 import Event from 'seedwork/build/src/Abstracts/Event';
 
-class GameOfLifeCreatedEvent extends Event {
+class CreateGameOfLifeCommand extends Event {
   public readonly Size: number;
 
   constructor(size:number) {
@@ -9,4 +9,4 @@ class GameOfLifeCreatedEvent extends Event {
   }
 }
 
-export = GameOfLifeCreatedEvent;
+export = CreateGameOfLifeCommand;

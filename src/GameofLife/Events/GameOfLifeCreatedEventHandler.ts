@@ -1,21 +1,29 @@
-import IAggregate from 'seedwork/build/src/Abstracts/IAggregate';
-import GameOfLifeCreatedEvent = require('./GameOfLifeCreatedEvent');
+import CreateGameOfLifeCommand = require('./CreateGameOfLifeCommand');
 import GameOfLife = require('../GameOfLife');
-const {SynchronousEventHandlerBase} = require('seedwork');
+import {EventHandlerBase} from 'seedwork';
+import Aggregate from "seedwork/build/src/Abstracts/Aggregate";
+import GameOfLifeInstance from "../../Repository/GameOfLifeInstance";
 
-class GameOfLifeCreatedEventHandler
-  extends SynchronousEventHandlerBase<GameOfLifeCreatedEvent> {
-  protected handle(context: GameOfLife, event: GameOfLifeCreatedEvent): void {
+class GameOfLifeCreatedEventHandler extends EventHandlerBase<CreateGameOfLifeCommand, void> {
+
+  constructor() {
+    super();
+  }
+
+  protected handle(context: GameOfLife, event: CreateGameOfLifeCommand): Promise<void> {
     context.createCells(event.Size);
+    return Promise.resolve();
   }
 
-  protected loadContext(event: GameOfLifeCreatedEvent): IAggregate {
-    return GameOfLife.getInstance();
+  protected loadContext(event: CreateGameOfLifeCommand): Promise<GameOfLife> {
+    return Promise.resolve(GameOfLifeInstance.getInstance());
   }
 
-  protected onError(error: unknown, event: GameOfLifeCreatedEvent): void {
-
+  protected onError(error: unknown, event: CreateGameOfLifeCommand): Promise<void> {
+    return Promise.resolve();
   }
+
+
 }
 
 export = GameOfLifeCreatedEventHandler;
