@@ -1,11 +1,10 @@
 import CreateGameOfLifeCommand = require('./CreateGameOfLifeCommand');
 import GameOfLife = require('../GameOfLife');
 import {EventHandlerBase} from 'seedwork';
-import Aggregate from "seedwork/build/src/Abstracts/Aggregate";
-import GameOfLifeInstance from "../../Repository/GameOfLifeInstance";
+import Aggregate from 'seedwork/build/src/Abstracts/Aggregate';
+import GameOfLifeInstance from '../../Repository/GameOfLifeInstance';
 
 class GameOfLifeCreatedEventHandler extends EventHandlerBase<CreateGameOfLifeCommand, void> {
-
   constructor() {
     super();
   }
@@ -22,8 +21,6 @@ class GameOfLifeCreatedEventHandler extends EventHandlerBase<CreateGameOfLifeCom
   protected onError(error: unknown, event: CreateGameOfLifeCommand): Promise<void> {
     return Promise.resolve();
   }
-
-
 }
 
 export = GameOfLifeCreatedEventHandler;

@@ -1,4 +1,4 @@
-import CellState from "./CellState";
+import CellState from './CellState';
 
 class Cell {
   private _state: CellState;

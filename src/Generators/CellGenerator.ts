@@ -7,7 +7,7 @@ class CellGenerator {
 
     for (let i = 0; i < size; i++) {
       cells[i] = [];
-      for(let n = 0; n < size; n++){
+      for (let n = 0; n < size; n++) {
         const state: CellState = (Math.round(Math.random())) as CellState;
         cells[i].push(new Cell(state));
       }

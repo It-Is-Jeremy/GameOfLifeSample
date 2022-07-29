@@ -17,27 +17,25 @@ class GameOfLife extends AggregateBase {
     this._cells = CellGenerator.generateCells(size);
   }
 
-  public updateCells(cells:Cell[][]):void{
+  public updateCells(cells:Cell[][]):void {
     this._previousCells.push([...this._cells]);
     this._cells = [...cells];
   }
 
-  public isStale(): boolean{
-    if(this._previousCells.length === 0 ){
+  public isStale(): boolean {
+    if (this._previousCells.length === 0 ) {
       return false;
     }
 
     return this._cells
         .every((cellRow, cellRowIndex) =>
-            this._previousCells[this._previousCells.length-1][cellRowIndex]
-                .every((previousCell, innerIndex) =>
-                    cellRow[innerIndex].getState() === previousCell.getState()));
+          this._previousCells[this._previousCells.length-1][cellRowIndex]
+              .every((previousCell, innerIndex) =>
+                cellRow[innerIndex].getState() === previousCell.getState()));
   }
 
   public getSize = (): number => this._size;
-  public getCells = (): Cell[][] => [...this._cells.map(cellRows => cellRows.slice())];
-
-
+  public getCells = (): Cell[][] => [...this._cells.map((cellRows) => cellRows.slice())];
 }
 
 export = GameOfLife;
